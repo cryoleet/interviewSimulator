@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Audio Recorder</title>
+</head>
+<body>
+    <h1>Record Audio</h1>
+    <button id="start">Start Recording</button>
+    <button id="stop" disabled>Stop Recording</button>
+    <!--<button id="replay" disabled>Replay Recording</button>-->
+    <audio id="player" controls style="display:none;"></audio>
+
+    <script>
+        let recorder;        // MediaRecorder instance to handle recording
+        let audioChunks = []; // Array to hold audio data chunks
+        let recordedAudioURL; // Variable to store the URL of the recorded audio
+
+        // Start recording on "Start Recording" button click
+        document.getElementById('start').onclick = () => {
+            // Clear previous audio data
+            audioChunks = [];
+
+            // Request microphone access
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    // Initialize MediaRecorder with the audio stream
+                    recorder = new MediaRecorder(stream);
+                    
+                    // Start recording
+                    recorder.start();
+
+                    // Enable the "Stop Recording" button
+                    document.getElementById('stop').disabled = false;
+
+                    // Handle audio data chunks when available
+                    recorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+
+                    // Handle actions when recording stops
+                    recorder.onstop = () => {
+                        // Create an audio Blob from the chunks
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+
+                        // Generate a URL for the Blob and store it for replay
+                        recordedAudioURL = URL.createObjectURL(audioBlob);
+
+                        // Show the audio player and set the source
+                        const player = document.getElementById('player');
+                        player.src = recordedAudioURL;
+                        player.style.display = 'block';
+
+                        // Enable the "Replay" button
+                        document.getElementById('replay').disabled = false;
+                    };
+
+                    
+                })
+                .catch(() => {
+                    alert('Please grant microphone access.');
+                });
+
+        };
+
+        // Stop recording on "Stop Recording" button click
+        document.getElementById('stop').onclick = () => {
+            // Stop the MediaRecorder
+            recorder.stop();
+
+            // Disable the "Stop Recording" button
+            document.getElementById('stop').disabled = true;
+        };
+
+        // Replay the recorded audio on "Replay" button click
+        /*document.getElementById('replay').onclick = () => {
+            const player = document.getElementById('player');
+            player.play();
+        }*/
+    </script>
+</body>
+</html>
