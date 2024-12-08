@@ -1,12 +1,23 @@
-let topics = []
+let topics = [];
 
 
-document.getElementById('topicAddBtn').addEventListener('click', function() {
+document.getElementById('topicAddBtn').addEventListener('click', addTopic);
+
+document.getElementById('topicInput').addEventListener('keypress', function(event) {
+
+  if (event.key == "Enter") {
+    event.preventDefault();
+    addTopic();
+  }
+})
+
+
+function addTopic() {
 
   const topicInput = document.getElementById('topicInput').value.trim()
 
   if (!topicInput) {
-    return
+    return;
   }
 
   topics.push(topicInput)
@@ -19,8 +30,7 @@ document.getElementById('topicAddBtn').addEventListener('click', function() {
 
   document.getElementById('topicInput').value = '';
   console.log(topics);
-});
-
+}
 
 function removeTopic(tagElement) {
 

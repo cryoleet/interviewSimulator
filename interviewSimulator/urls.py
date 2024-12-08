@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from simulator.views import selectInterview
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('select/', selectInterview),
 ]
