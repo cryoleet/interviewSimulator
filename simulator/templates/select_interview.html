@@ -22,15 +22,17 @@
     </li>
   </ul>
 
-  <!-- Tab content -->
+
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="select" role="tabpanel" aria-labelledby="select-tab">
 
-      <form>
+      <form id="topicsForm" method="post" action="/topics/">
+        {% csrf_token %}
         <div class="d-flex mt-3">
           <input id="topicInput" class="form-control" type="text" placeholder="Enter topic" aria-label="Enter topic">
           <button id="topicAddBtn" type="button" class="btn btn-dark ms-2">Add</button>
         </div>
+        <input type="hidden" id="topicList" name="topicList">
         <button class="btn btn-primary mt-3" type="submit">Generate Questions</button>
       </form>
 
@@ -69,5 +71,5 @@
 {% endblock %}
 
 {% block script %}
-<script src={% static 'js/selectInterview.js' %}></script>
+<script src={% static 'js/select_interview.js' %}></script>
 {% endblock %}

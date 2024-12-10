@@ -1,6 +1,5 @@
 let topics = [];
 
-
 document.getElementById('topicAddBtn').addEventListener('click', addTopic);
 
 document.getElementById('topicInput').addEventListener('keypress', function(event) {
@@ -10,6 +9,10 @@ document.getElementById('topicInput').addEventListener('keypress', function(even
     addTopic();
   }
 })
+
+document.getElementById("topicsForm").addEventListener("submit", function(event){
+  document.getElementById("topicList").value = JSON.stringify(topics)
+});
 
 
 function addTopic() {
