@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<main class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1>Welcome, User!</h1><!--replace with {{user.name}}-->
+            <p>Your personalized AI-powered interview practice platform.</p>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Simulate Interview</h5>
+                    <p class="card-text">Start new session.</p>
+                    <a href="#" class="btn btn-primary">Start Now</a><!--set up urls,views-->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">View Feedback</h5>
+                    <p class="card-text">Review feedback from your previous sessions.</p>
+                    <a href="#" class="btn btn-secondary">View Feedback</a><!--set up urls,views-->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Past Answers</h5>
+                    <p class="card-text">Check answers from previous interview sessions.</p>
+                    <a href="#" class="btn btn-outline-primary">View Answers</a><!--set up urls,views-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2>Recent Activity</h2>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    Technical Interview - Dec 5, 2024: Score 85%
+                </li>
+                <li class="list-group-item">
+                    HR Interview - Dec 3, 2024: Score 90%
+                </li>
+                <li class="list-group-item">
+                    Mock Interview - Dec 1, 2024: Score 78%
+                </li>
+                <li class="list-group-item">
+                    Technical Interview - Nov 29, 2024: Score 88%
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock %}

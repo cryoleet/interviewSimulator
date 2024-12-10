@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from simulator.views import selectInterview, topics
+from simulator.views import selectInterview, topics, dashboard  
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('select/', selectInterview),
-    path('topics/', topics)
+    path('topics/', topics),
+     path('dashboard/', dashboard,)
 ]
