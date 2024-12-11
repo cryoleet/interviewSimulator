@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} test {% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block main %} 
+<div class="container">
+  <h2 class="text-center mt-5">Interview Simulator</h2>
+  <div id="question-box" class="mt-5">
+      <h4 id="current-question"></h4>
+  </div>
+  <div id="controls" class="text-center">
+      <button id="answer-btn" class="btn btn-primary">Answer</button>
+      <button id="skip-btn" class="btn btn-secondary">Skip</button>
+      <button id="complete-btn" class="btn btn-success d-none">Complete Interview</button>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script id="questions-data" type="application/json">
+  {{ questions|safe }}
+</script>
+<script src={% static 'js/questions.js' %}></script>
+
+{% endblock %}
