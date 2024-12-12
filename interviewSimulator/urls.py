@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from simulator.views import selectInterview, topics, interview_questions
+from simulator.views import selectInterview, topics, interview_questions, feedback
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('select/', selectInterview),
     path('topics/', topics),
     path('interview/', interview_questions),
+    path('feedback/', feedback)
 ]
