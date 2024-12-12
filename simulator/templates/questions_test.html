@@ -16,9 +16,11 @@
   </div>
   <div id="controls" class="text-center">
       <button id="answer-btn" class="btn btn-primary">Answer</button>
+      <button id="stop-btn" class="btn btn-danger d-none">Stop Recording</button>
       <button id="skip-btn" class="btn btn-secondary">Skip</button>
       <button id="complete-btn" class="btn btn-success d-none">Complete Interview</button>
   </div>
+  <!--<audio id="player" controls style="display:none;"></audio>-->
 </div>
 
 {% endblock %}
@@ -27,6 +29,5 @@
 <script id="questions-data" type="application/json">
   {{ questions|safe }}
 </script>
-<script src={% static 'js/questions.js' %}></script>
-
+<script src="{% static 'js/questions.js' %}"></script>
 {% endblock %}
