@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const questionsDataTag = document.getElementById('questions-data');
     const questions = JSON.parse(questionsDataTag.textContent);
+    console.log(questions);
     let currentIndex = 0;
 
     const questionBox = document.getElementById('current-question');
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             questionBox.textContent = "You have answered all the questions!";
             answerBtn.classList.add('d-none');
             skipBtn.classList.add('d-none');
+            stopBtn.classList.add('d-none');
             completeBtn.classList.remove('d-none');
         }
     }
@@ -67,6 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Upload audio
                     const formData = new FormData();
                     formData.append("audio_file", audioBlob, `question_${currentIndex + 1}.wav`);
+
+                    console.log(formData);
     
                     fetch("/media/audio_uploads/", {
                         method: "POST",
@@ -110,8 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
     stopBtn.addEventListener('click', async function () {
         try {
             await stopRecording();
-            currentIndex++;
-            displayQuestion();
         } catch (error) {
             console.error(error);
         }

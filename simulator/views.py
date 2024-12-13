@@ -34,8 +34,13 @@ def audio_upload(request):
 
         for key, audio_file in files.items():
             file_path = os.path.join('media', 'audio_uploads', audio_file.name)
+
+            if default_storage.exists(file_path):
+                    default_storage.delete(file_path)
+
             saved_path = default_storage.save(file_path, ContentFile(audio_file.read()))
             saved_files.append(saved_path)
+            print(saved_files)
 
         return JsonResponse({
             'message': 'Audio files uploaded successfully!',
