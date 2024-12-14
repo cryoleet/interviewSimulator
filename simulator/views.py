@@ -5,7 +5,8 @@ from django.core.files.base import ContentFile
 from django.views.decorators.csrf import csrf_exempt
 import os
 import json
-from .gemini_prompts import topicListPrompt, askGemini
+from .gemini_helper import topicListPrompt, askGemini, feedbackPrompt
+from .whisper_helper import transcribeAudio
 
 
 def selectInterview(request):
@@ -19,6 +20,7 @@ def topics(request):
     prompt = topicListPrompt.format(topicList)
     list_of_questions = askGemini(prompt)
     request.session["questions"] = list_of_questions
+    request.session["number_of_questions"] = len(list_of_questions)
     return redirect("/interview")
   
 
@@ -50,7 +52,30 @@ def audio_upload(request):
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
-
-
 def feedback(request):
-  return render(request, "feedback.html")
+    
+    answers = {}
+
+    number_of_questions = request.session.get("number_of_questions")
+    questions = request.session.get("questions")
+
+    for i in range(number_of_questions):
+        file_path = os.path.join('.', 'media', 'media', 'audio_uploads', f"question_{i + 1}.wav")
+
+        transcribedText = transcribeAudio(filepath=file_path)
+
+        answers[questions[i]] = transcribedText
+
+    
+    prompt = feedbackPrompt.format(answers)
+    response = askGemini(prompt)
+
+    data = list(response)
+
+    feedback = {}
+    for i in range(number_of_questions):
+        feedback[questions[i]] = data[i]
+
+    return render(request, "feedback.html", {"feedback" : feedback})
+
+  

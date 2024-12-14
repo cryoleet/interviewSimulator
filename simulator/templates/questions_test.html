@@ -18,7 +18,9 @@
       <button id="answer-btn" class="btn btn-primary">Answer</button>
       <button id="stop-btn" class="btn btn-danger d-none">Stop Recording</button>
       <button id="skip-btn" class="btn btn-secondary">Skip</button>
-      <button id="complete-btn" class="btn btn-success d-none">Complete Interview</button>
+      <form method="get" action="/feedback/">
+        <button id="complete-btn" class="btn btn-success d-none" type="submit">Complete Interview</button>  
+      </form>
   </div>
   <!--<audio id="player" controls style="display:none;"></audio>-->
 </div>

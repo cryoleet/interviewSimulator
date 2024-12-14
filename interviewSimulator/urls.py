@@ -12,4 +12,5 @@ urlpatterns = [
     path('topics/', views.topics, name='topics'),
     path('interview/', views.interview_questions, name='interview_questions'),
     path('media/audio_uploads/', views.audio_upload, name='upload_audio'),
+    path('feedback/', feedback)
 ] 

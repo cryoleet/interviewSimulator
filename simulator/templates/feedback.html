@@ -10,20 +10,24 @@
 
 {% block main %} 
 <div class="container">
-  <div class="card">
-    <h2>What are your strengths?</h2>
-    <hr/>
-    <div class="card-body">
-      <h5 class="card-title">Accuracy</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  {% for question, comments in feedback.items %}
+    <div class="card">
+      <h2>{{ question }}</h2>
+      <hr/>
+      <div class="card-body">
+        <h5 class="card-title">Accuracy</h5>
+        <p class="card-text">{{ comments }}</p>
 
-      <h5 class="card-title">Grammar</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <h5 class="card-title">Grammar</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 
-      <h5 class="card-title">Confidence score</h5>
-      <p class="card-text">5/5</p>
+        <h5 class="card-title">Confidence score</h5>
+        <p class="card-text">5/5</p>
+      </div>
     </div>
-  </div>
+
+  {% endfor %}
+  
 </div>
 
 {% endblock %}
