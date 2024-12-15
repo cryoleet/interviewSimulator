@@ -10,19 +10,19 @@
 
 {% block main %} 
 <div class="container">
-  {% for question, comments in feedback.items %}
+  {% for question in feedback %}
     <div class="card">
-      <h2>{{ question }}</h2>
+      <h2>{{ question.question }}</h2>
       <hr/>
       <div class="card-body">
         <h5 class="card-title">Accuracy</h5>
-        <p class="card-text">{{ comments }}</p>
+        <p class="card-text">{{ question.accuracy }}</p>
 
         <h5 class="card-title">Grammar</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-text">{{ question.grammar }}</p>
 
         <h5 class="card-title">Confidence score</h5>
-        <p class="card-text">5/5</p>
+        <p class="card-text">{{ question.confidence }} / 5</p>
       </div>
     </div>
 

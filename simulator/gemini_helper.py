@@ -1,12 +1,11 @@
 import google.generativeai as genai
+import json
 
 
 topicListPrompt = """
 I have a list of keywords. For each keyword, generate an interview question related to that keyword. The questions should be relevant, professional, and appropriate for a job interview.
 
 Keywords: {}
-
-Format the output as a list of questions, separated by a single newline character and nothing else. Do not include any extra text, just the questions.
 """
 
 
@@ -28,6 +27,11 @@ Format the output as a list of questions, separated by a single newline characte
 """
 
 
+questions_schema = {
+    "type": "array",
+    "items": {"type": "string"}
+}
+
 # feedbackPrompt = """
 # Below is a python dictionary in string format, where each key represent a question and value represents an answer given by a user of a platform.
 
@@ -41,32 +45,53 @@ Format the output as a list of questions, separated by a single newline characte
 # The reponse text should be directly parsable using json.loads() in python.
 # """
 
+feedback_obj = {
+  "type" : "object",
+  "properties" : {
+    "question" : {"type" : "string"},
+    "answer" : {"type" : "string"},
+    "accuracy" : {"type" : "string"},
+    "grammar" : {"type" : "string"},
+    "confidence" : {"type" : "integer"}
+  },
+  "required" : ["question", "answer", "accuracy", "grammar", "confidence"]
+}
 
+feedback_schema = {
+    "type" : "array",
+    "items" : feedback_obj
+}
 
 feedbackPrompt = """
 Below is a Python dictionary in string format, where each key represents a question, and the corresponding value is the answer given by a user on a platform.
 
 {}
 
-For each answer, provide feedback in the following format:
+return json response
+For each answer, provide feedback including the following fields:
 
-1. If the question is objective, provide feedback on the accuracy of the answer, mentioning where it could be improved.
-2. If the question is subjective, evaluate how well the user answered, offering suggestions for improvement.
-3. If the answer is completely unrelated, unintelligible, or unclear, state "Invalid answer".
-4. Each feedback should be written as a succinct paragraph.
-5. Paragraphs should be separated by a newline character.
+question - the question itself
+answer - the answer given by the user
+Accuracy - If the question has an objective answer describe how accurate the answer was and where it could be improved, if the answer is subjective describe how well the user answered and where they could improve. This should be a succint paragraph.
+Grammar - A succint paragraph highlighting the major grammatical errors in the user's answer.
+confidence - a number in the range 1-5 based on how confident the answer was
 
-Do not include any extra text or formatting.
-
-Provide the feedback for each question-answer pair in chronological order, one paragraph per answer.
+Provide the feedback for each question-answer pair in chronological order.
 """
 
 
 
 
-def askGemini(prompt) -> list[str]:
+def askGemini(prompt, schema):
   genai.configure(api_key="AIzaSyAQU_hoYRlc74gZFO6ehzbe1lGgvbZdqn8")
   model = genai.GenerativeModel("gemini-1.5-flash")
-  response = model.generate_content(prompt)
-  list_of_questions = [x for x in response.text.split("\n") if x != '']
-  return list_of_questions
+  response = model.generate_content(
+    prompt,
+    generation_config=genai.GenerationConfig(
+        response_mime_type="application/json",
+        response_schema=schema
+    ),
+  )
+  return json.loads(response.text)
+
+

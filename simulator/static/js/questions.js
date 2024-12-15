@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const questionsDataTag = document.getElementById('questions-data');
+    console.log(questionsDataTag)
     const questions = JSON.parse(questionsDataTag.textContent);
     console.log(questions);
     let currentIndex = 0;

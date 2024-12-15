@@ -5,7 +5,7 @@ from django.core.files.base import ContentFile
 from django.views.decorators.csrf import csrf_exempt
 import os
 import json
-from .gemini_helper import topicListPrompt, askGemini, feedbackPrompt
+from .gemini_helper import topicListPrompt, askGemini, feedbackPrompt, questions_schema, feedback_schema
 from .whisper_helper import transcribeAudio
 
 
@@ -18,7 +18,9 @@ def topics(request):
     topicList = request.POST.get("topicList", [])
     topicList = ",".join(topicList)
     prompt = topicListPrompt.format(topicList)
-    list_of_questions = askGemini(prompt)
+    list_of_questions = askGemini(prompt, questions_schema)
+    print("********************")
+    print(list_of_questions)
     request.session["questions"] = list_of_questions
     request.session["number_of_questions"] = len(list_of_questions)
     return redirect("/interview")
@@ -68,14 +70,9 @@ def feedback(request):
 
     
     prompt = feedbackPrompt.format(answers)
-    response = askGemini(prompt)
+    response = askGemini(prompt, feedback_schema)
 
-    data = list(response)
 
-    feedback = {}
-    for i in range(number_of_questions):
-        feedback[questions[i]] = data[i]
-
-    return render(request, "feedback.html", {"feedback" : feedback})
+    return render(request, "feedback.html", {"feedback" : response})
 
   
