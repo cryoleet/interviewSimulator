@@ -5,8 +5,10 @@ from django.core.files.base import ContentFile
 from django.views.decorators.csrf import csrf_exempt
 import os
 import json
-from .gemini_helper import topicListPrompt, askGemini, feedbackPrompt, questions_schema, feedback_schema
+from .gemini_helper import topicListPrompt, askGemini, feedbackPrompt, questions_schema, feedback_schema, companySpecificPrompt, JdPrompt
 from .whisper_helper import transcribeAudio
+from docx import Document
+import PyPDF2
 
 
 def selectInterview(request):
@@ -19,11 +21,60 @@ def topics(request):
     topicList = ",".join(topicList)
     prompt = topicListPrompt.format(topicList)
     list_of_questions = askGemini(prompt, questions_schema)
-    print("********************")
-    print(list_of_questions)
     request.session["questions"] = list_of_questions
     request.session["number_of_questions"] = len(list_of_questions)
     return redirect("/interview")
+  
+
+def throughJD(request):
+    if request.method == "POST":
+        jdFile = request.FILES.get("jd")
+        file_content = ""
+        if jdFile:
+            file_name = jdFile.name
+            file_extension = os.path.splitext(file_name)[1].lower()
+            
+            if file_extension == ".txt":
+                with open(jdFile, 'r', encoding='utf-8') as file:
+                    file_content = file.read()
+                    
+            elif file_extension == ".docx":
+                
+                doc = Document(file)
+                text = [p.text for p in doc.paragraphs]
+                file_content = "\n".join(text)
+                
+
+            elif file_extension == ".pdf":
+                
+                with open(jdFile, 'rb') as file:
+                    reader = PyPDF2.PdfReader(file)
+                    text = [page.extract_text() for page in reader.pages]
+                    file_content = "\n".join(text)
+
+            else:
+                raise TypeError("Invalid file type")
+
+
+        prompt = JdPrompt.format(2, file_content)
+
+        list_of_questions = askGemini(prompt, questions_schema)
+        request.session["questions"] = list_of_questions
+        request.session["number_of_questions"] = len(list_of_questions)
+        return redirect("/interview")
+    
+
+def companySpec(request):
+    if request.method == "POST":
+        companyName = request.POST.get("companyName")
+        companyRole = request.POST.get("companyRole")
+        prompt = companySpecificPrompt.format(2, companyName, companyRole)
+        list_of_questions = askGemini(prompt, questions_schema)
+        request.session["questions"] = list_of_questions
+        request.session["number_of_questions"] = len(list_of_questions)
+        return redirect("/interview")
+
+        
   
 
 def interview_questions(request):

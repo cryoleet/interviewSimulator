@@ -53,14 +53,17 @@
 
     </div>
     <div class="tab-pane fade" id="upload" role="tabpanel" aria-labelledby="upload-tab">
-      <form>
-        <input type="file" class="form-control mt-3" id="jobDescription">
+      <form method="post" action="/jd/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" class="form-control mt-3" id="jobDescription" name="jd">
         <button class="btn btn-primary mt-3" type="submit">Upload and Generate Questions</button>
       </form>
     </div>
     <div class="tab-pane fade" id="company" role="tabpanel" aria-labelledby="company-tab">
-      <form>
-        <input type="text" class="form-control mt-3" id="companyName" placeholder="Enter Company Name">
+      <form method="post" action="/companyspec/">
+        {% csrf_token %}
+        <input type="text" class="form-control mt-3" id="companyName" placeholder="Enter Company Name" name="companyName">
+        <input type="text" class="form-control mt-3" id="companyRole" placeholder="Enter Role" name="companyRole">
         <button class="btn btn-primary mt-3" type="submit">Generate Questions</button>
       </form>
     </div>

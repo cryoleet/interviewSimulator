@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from simulator import views
-from simulator.views import selectInterview, topics, interview_questions, feedback
+from simulator.views import selectInterview, topics, interview_questions, feedback, throughJD, companySpec
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,4 +14,6 @@ urlpatterns = [
     path('media/audio_uploads/', views.audio_upload, name='upload_audio'),
     path('feedback/', feedback),
     path('', views.selectInterview),
+    path('jd/', throughJD),
+    path('companyspec/', companySpec)
 ] 
