@@ -32,8 +32,12 @@
           <input id="topicInput" class="form-control" type="text" placeholder="Enter topic" aria-label="Enter topic">
           <button id="topicAddBtn" type="button" class="btn btn-dark ms-2">Add</button>
         </div>
-        <input type="hidden" id="topicList" name="topicList">
+        
+        <input type="hidden" id="topicList" name="topicList"> 
+
+        <input class="form-control mt-2 number-questions" type="number" placeholder="Number of questions" aria-label="Enter number of questions" name="number_of_questions" style="max-width : 200px;">
         <button class="btn btn-primary mt-3" type="submit">Generate Questions</button>
+
       </form>
 
       
@@ -56,6 +60,7 @@
       <form method="post" action="/jd/" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" class="form-control mt-3" id="jobDescription" name="jd">
+        <input class="form-control mt-2 number-questions" type="number" placeholder="Number of questions" aria-label="Enter number of questions" name="number_of_questions" style="max-width : 200px;">
         <button class="btn btn-primary mt-3" type="submit">Upload and Generate Questions</button>
       </form>
     </div>
@@ -63,7 +68,8 @@
       <form method="post" action="/companyspec/">
         {% csrf_token %}
         <input type="text" class="form-control mt-3" id="companyName" placeholder="Enter Company Name" name="companyName">
-        <input type="text" class="form-control mt-3" id="companyRole" placeholder="Enter Role" name="companyRole">
+        <input type="text" class="form-control mt-2" id="companyRole" placeholder="Enter Role" name="companyRole">
+        <input class="form-control mt-2 number-questions" type="number" placeholder="Number of questions" aria-label="Enter number of questions" name="number_of_questions" style="max-width : 200px;">
         <button class="btn btn-primary mt-3" type="submit">Generate Questions</button>
       </form>
     </div>

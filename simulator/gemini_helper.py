@@ -3,7 +3,7 @@ import json
 
 
 topicListPrompt = """
-I have a list of keywords. For each keyword, generate an interview question related to that keyword. The questions should be relevant, professional, and appropriate for a job interview.
+I have a list of keywords. Generate a list of {} based on the given keywords. The questions should be relevant, professional, and appropriate for a job interview.
 
 Keywords: {}
 """

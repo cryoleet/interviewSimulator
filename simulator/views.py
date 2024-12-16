@@ -18,9 +18,15 @@ def selectInterview(request):
 def topics(request):
   if request.method == "POST":
     topicList = request.POST.get("topicList", [])
-    topicList = ",".join(topicList)
-    prompt = topicListPrompt.format(topicList)
+    number_of_questions = request.POST.get("number_of_questions", 5)
+    prompt = topicListPrompt.format(number_of_questions, topicList)
     list_of_questions = askGemini(prompt, questions_schema)
+    print("*" * 10)
+    print(prompt)
+    print("*" * 10)
+    print("*" * 10)
+    print(list_of_questions)
+    print("*" * 10)
     request.session["questions"] = list_of_questions
     request.session["number_of_questions"] = len(list_of_questions)
     return redirect("/interview")
@@ -29,6 +35,7 @@ def topics(request):
 def throughJD(request):
     if request.method == "POST":
         jdFile = request.FILES.get("jd")
+        number_of_questions = request.POST.get("number_of_questions", 5)
         file_content = ""
         if jdFile:
             file_name = jdFile.name
@@ -56,7 +63,7 @@ def throughJD(request):
                 raise TypeError("Invalid file type")
 
 
-        prompt = JdPrompt.format(2, file_content)
+        prompt = JdPrompt.format(number_of_questions, file_content)
 
         list_of_questions = askGemini(prompt, questions_schema)
         request.session["questions"] = list_of_questions
@@ -68,7 +75,8 @@ def companySpec(request):
     if request.method == "POST":
         companyName = request.POST.get("companyName")
         companyRole = request.POST.get("companyRole")
-        prompt = companySpecificPrompt.format(2, companyName, companyRole)
+        number_of_questions = request.POST.get("number_of_questions", 5)
+        prompt = companySpecificPrompt.format(number_of_questions, companyName, companyRole)
         list_of_questions = askGemini(prompt, questions_schema)
         request.session["questions"] = list_of_questions
         request.session["number_of_questions"] = len(list_of_questions)
