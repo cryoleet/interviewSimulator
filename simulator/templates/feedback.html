@@ -21,11 +21,13 @@
         <h5 class="card-title">Grammar</h5>
         <p class="card-text">{{ question.grammar }}</p>
 
-        <h5 class="card-title">Confidence score</h5>
-        <p class="card-text">{{ question.confidence }} / 5</p>
+        {% comment %} <h5 class="card-title">Confidence score</h5>
+        <p class="card-text">{{ question.confidence }} / 5</p> {% endcomment %}
+
+        <h5 class="card-title">Speech Confidence</h5>
+        <p class="card-text">{{ question.audio_confidence }}</p>
       </div>
     </div>
-
   {% endfor %}
   
 </div>

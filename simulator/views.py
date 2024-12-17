@@ -9,6 +9,7 @@ from .gemini_helper import topicListPrompt, askGemini, feedbackPrompt, questions
 from .whisper_helper import transcribeAudio
 from docx import Document
 import PyPDF2
+from simulator.confidence_model.classify import classify_audio
 
 
 def selectInterview(request):
@@ -116,20 +117,28 @@ def audio_upload(request):
 def feedback(request):
     
     answers = {}
+    audio_files = []
 
     number_of_questions = request.session.get("number_of_questions")
     questions = request.session.get("questions")
 
     for i in range(number_of_questions):
-        file_path = os.path.join('.', 'media', 'media', 'audio_uploads', f"question_{i + 1}.wav")
+        file_path = os.path.join('media', 'media', 'audio_uploads', f"question_{i + 1}.wav")
 
         transcribedText = transcribeAudio(filepath=file_path)
 
         answers[questions[i]] = transcribedText
 
+        audio_files.append(file_path)
+
     
     prompt = feedbackPrompt.format(answers)
     response = askGemini(prompt, feedback_schema)
+    
+    i = 0
+    for answer_feedback in response:
+        answer_feedback["audio_confidence"] = classify_audio(audio_files[i])
+        i += 1
 
 
     return render(request, "feedback.html", {"feedback" : response})
