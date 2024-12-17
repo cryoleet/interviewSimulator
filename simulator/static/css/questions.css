@@ -1,0 +1,94 @@
+/* General Container Styles */
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  /* Question Box */
+  #question-box {
+    max-width: 80%;  /* Adjust the width as needed */
+    margin: 0 auto;  /* Center the box horizontally */
+    padding: 20px;  /* Add some padding inside */
+    background-color: #f8f9fa;  /* Light background color */
+    border-radius: 10px;  /* Rounded corners for aesthetics */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+    height: auto;  /* Allow height to adjust based on content */
+    min-height: 100px;  /* Prevent the box from being too small */
+    overflow-y: auto;  /* Enable vertical scrolling if content overflows */
+    white-space: normal;  /* Allow text to wrap */
+  }
+  
+  
+  /* Button Styles */
+  button {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Primary Button (Answer) */
+  #answer-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+  
+  #answer-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Slight enlargement on hover */
+  }
+  
+  /* Danger Button (Stop Recording) */
+  #stop-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+  }
+  
+  #stop-btn:hover {
+    background-color: #a71d2a;
+    transform: scale(1.05); /* Slight enlargement on hover */
+  }
+  
+  /* Secondary Button (Skip) */
+  #skip-btn {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+  }
+  
+  #skip-btn:hover {
+    background-color: #495057;
+    transform: scale(1.05); /* Slight enlargement on hover */
+  }
+  
+  /* Success Button (Complete Interview) */
+  #complete-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+  }
+  
+  #complete-btn:hover {
+    background-color: #1e7e34;
+    transform: scale(1.05); /* Slight enlargement on hover */
+  }
+  
+  /* Icon Styling */
+  button i {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+  
+  /* Animations for Buttons */
+  button:active {
+    transform: scale(0.95); /* Button compresses slightly when clicked */
+    transition: all 0.1s ease;
+  }
+  

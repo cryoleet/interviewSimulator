@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         return response.json();
                     })
                     .then(data => {
-                        alert(`Recording for question ${currentIndex + 1} uploaded successfully!`);
+                        console.log(`Recording for question ${currentIndex + 1} uploaded successfully!`);
                         resolve(audioBlob);
     
                         // Increment the question index and display the next question
@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .catch(error => {
                         console.error("Upload failed!", error);
-                        alert(`Failed to upload recording for question ${currentIndex + 1}`);
-                        reject(error);
+                        console.log(`Failed to upload recording for question ${currentIndex + 1}`);
+                        console.log(error);
                     });
                 };
             } else {
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             await startRecording();
         } catch (error) {
-            alert(error);
+            console.log(error);
         }
     });
 
@@ -121,14 +121,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     skipBtn.addEventListener('click', function () {
-        alert(`Skipping question ${currentIndex + 1}: ${questions[currentIndex]}`);
+        console.log(`Skipping question ${currentIndex + 1}: ${questions[currentIndex]}`);
         currentIndex++;
         displayQuestion();
     });
 
     completeBtn.addEventListener('click', function () {
-        alert("Interview Completed!");
-        // TODO: redirect to feedback page (for now redirect to a placeholder view, make sure you pass the recorded audio for all questions)
+        console.log("Interview Completed!");
     });
 
     displayQuestion();

@@ -13,7 +13,7 @@ urlpatterns = [
     path('interview/', views.interview_questions, name='interview_questions'),
     path('media/audio_uploads/', views.audio_upload, name='upload_audio'),
     path('feedback/', feedback),
-    path('', views.selectInterview),
+    path('', views.home, name='home'),
     path('jd/', throughJD),
     path('companyspec/', companySpec)
 ] 

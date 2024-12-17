@@ -1,0 +1,60 @@
+/* feedback.css */
+.card {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #ffffff;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .card-body {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  h5 {
+    margin-top: 15px;
+  }
+  
+  .card-body p {
+    margin-bottom: 10px;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 15px;
+  }
+  
+  @media (max-width: 767px) {
+    .card {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  
+    .container {
+      padding: 20px;
+    }
+  }
+  

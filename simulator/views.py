@@ -134,4 +134,7 @@ def feedback(request):
 
     return render(request, "feedback.html", {"feedback" : response})
 
+
+def home(request):
+    return render(request, 'home.html')
   

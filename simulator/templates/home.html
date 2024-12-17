@@ -1,14 +1,16 @@
+
 {% extends "layout.html" %}
+
+{% load static %}
 
 {% block title %} Home - Interview Simulator {% endblock %}
 
 {% block main %}
-  <!-- Hero Section -->
   <section class="hero text-center fade-in">
     <div class="container">
       <h1 class="display-4">Welcome to Interview Simulator</h1>
       <p class="lead">Prepare for your interviews with personalized AI-driven simulations.</p>
-      <a href="select/" class="btn btn-light btn-lg">Start Practicing</a>
+      <a href="{% url 'select_interview' %}" class="btn btn-light btn-lg">Start Practicing</a>
     </div>
   </section>
 
@@ -17,7 +19,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="card shadow">
-          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Feature 1">
+          <img src="{% static 'images/feedback.jpg' %}" class="card-img-top" alt="Feature 1">
           <div class="card-body">
             <h5 class="card-title">Personalized Feedback</h5>
             <p class="card-text">Get valuable insights into your responses with real-time AI feedback.</p>
@@ -26,7 +28,7 @@
       </div>
       <div class="col-md-4">
         <div class="card shadow">
-          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Feature 2">
+          <img src="{% static 'images/interview_domains.jpg' %}" class="card-img-top" alt="Feature 2">
           <div class="card-body">
             <h5 class="card-title">Multiple Interview Domains</h5>
             <p class="card-text">Practice interviews for various domains including Tech, HR, and more.</p>
@@ -35,7 +37,7 @@
       </div>
       <div class="col-md-4">
         <div class="card shadow">
-          <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Feature 3">
+          <img src="{% static 'images/ai_simulation.jpg' %}" class="card-img-top" alt="Feature 3">
           <div class="card-body">
             <h5 class="card-title">AI-Powered Simulations</h5>
             <p class="card-text">Experience lifelike interview simulations driven by advanced AI models.</p>
